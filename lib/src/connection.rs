@@ -93,6 +93,8 @@ impl Connection {
             .await
             .map_err(|_| Error::ConnectionTimedOut)??;
 
+        stream.set_nodelay(true)?;
+
         // Configure TCP keepalive on the raw socket
         Self::configure_tcp_keepalive(&stream, opts.tcp_keepalive)?;
 
